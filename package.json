@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
     "build": "npx babel src --out-dir dist",
     "eject": "react-scripts eject",
-    "prod": "NODE_ENV=production pm2 start app.js --name myapp"
+    "prod": "NODE_ENV=production pm2 start app.js --name myapp",
+    "dev": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +15,12 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.12.0",
     "react-scripts": "^5.0.1"
