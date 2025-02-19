@@ -162,8 +162,14 @@ app.get('/api/products', (req, res) => {
 
 // ✅ POST a New Product (with Image Upload)
 app.post('/api/products', upload.single('image'), (req, res) => {
+    console.log('File received:', req.file);  // Debug log
+
+    if (!req.file) {
+        return res.status(400).json({ error: '❌ No image uploaded' });
+    }
+
     const { name, category, price, weight, description } = req.body;
-    const image = req.file ? req.file.path : null;
+    const image = req.file.path;  // Cloudinary URL
 
     const sql = 'INSERT INTO products (name, category, price, weight, description, image) VALUES (?, ?, ?, ?, ?, ?)';
     db.query(sql, [name, category, price, weight, description, image], (err, result) => {
@@ -173,6 +179,7 @@ app.post('/api/products', upload.single('image'), (req, res) => {
         res.json({ message: '✅ Product added successfully', id: result.insertId });
     });
 });
+
 
 // ✅ DELETE a Product by ID
 app.delete('/api/products/:id', (req, res) => {
